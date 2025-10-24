@@ -1,0 +1,20 @@
+# Dependency directory
+node_modules
+
+# Build output
+dist
+
+# Environment files (these are injected, not copied)
+.env
+.env.*
+
+# Docker files
+Dockerfile
+docker-compose.yml
+
+# Git directory
+.git
+.gitignore
+
+# README
+README.md
