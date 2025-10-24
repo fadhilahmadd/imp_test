@@ -149,6 +149,7 @@ const deletePostRoute = createRoute({
     tags: ['Posts'],
 });
 
+
 postRoutes.on(['POST', 'PATCH', 'DELETE'], '/*', authMiddleware);
 
 postRoutes.openapi(listPostsRoute, async (c) => {
@@ -162,7 +163,7 @@ postRoutes.openapi(listPostsRoute, async (c) => {
             orderBy: { createdAt: 'desc' },
             include: {
                 author: {
-                    select: { id: true, email: true },
+                    select: { id: true, name: true, email: true },
                 },
             },
         }),
@@ -191,7 +192,7 @@ postRoutes.openapi(createPostRoute, async (c) => {
         },
         include: {
             author: {
-                select: { id: true, email: true }
+                select: { id: true, name: true, email: true }
             }
         }
     });
@@ -205,7 +206,7 @@ postRoutes.openapi(getPostRoute, async (c) => {
         where: { id },
         include: {
             author: {
-                select: { id: true, email: true },
+                select: { id: true, name: true, email: true },
             },
         },
     });
@@ -234,7 +235,7 @@ postRoutes.openapi(updatePostRoute, async (c) => {
         data,
         include: {
             author: {
-                select: { id: true, email: true }
+                select: { id: true, name: true, email: true }
             }
         }
     });

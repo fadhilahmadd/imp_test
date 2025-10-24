@@ -104,7 +104,7 @@ const getMeRoute = createRoute({
 });
 
 authRoutes.openapi(signUpRoute, async (c) => {
-    const { email, password } = c.req.valid('json');
+    const { name, email, password } = c.req.valid('json');
 
     const existingUser = await db.user.findUnique({ where: { email } });
     if (existingUser) {
@@ -113,8 +113,8 @@ authRoutes.openapi(signUpRoute, async (c) => {
 
     const passwordHash = await hashPassword(password);
     const user = await db.user.create({
-        data: { email, passwordHash },
-        select: { id: true, email: true },
+        data: { name, email, passwordHash },
+        select: { id: true, name: true, email: true },
     });
 
     return apiSuccess(c, 'Account created successfully', user, 201);
@@ -139,6 +139,7 @@ authRoutes.openapi(signInRoute, async (c) => {
 
     return apiSuccess(c, 'Signed in successfully', {
         id: user.id,
+        name: user.name,
         email: user.email,
     }, 200);
 },
@@ -159,7 +160,7 @@ authRoutes.openapi(
 
         const user = await db.user.findUnique({
             where: { id: userId },
-            select: { id: true, email: true },
+            select: { id: true, name: true, email: true },
         });
 
         if (!user) {
@@ -170,4 +171,3 @@ authRoutes.openapi(
         return apiSuccess(c, 'Current user details fetched', user, 200);
     },
 );
-

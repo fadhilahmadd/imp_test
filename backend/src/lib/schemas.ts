@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 export const userSchema = z.object({
     id: z.string().cuid().openapi({ example: 'clx1v2q0e0000a4c8n2y7f6z0' }),
+    name: z.string().openapi({ example: 'Dodi' }),
     email: z.string().email().openapi({ example: 'user@example.com' }),
     createdAt: z
         .string()
@@ -37,6 +38,7 @@ export const postSchema = z.object({
 // --- Request/Input Schemas ---
 
 export const signUpSchema = z.object({
+    name: z.string().min(1, 'Name is required').openapi({ example: 'Dodi' }),
     email: z.string().email().openapi({ example: 'user@example.com' }),
     password: z
         .string()
